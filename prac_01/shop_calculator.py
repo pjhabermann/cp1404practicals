@@ -9,7 +9,7 @@ total_price = 0
 
 for i in range(number_of_items):
 
-    item_price = int(input(f"What is the price of item {i+1}: "))
+    item_price = float(input(f"What is the price of item {i+1}: "))
     total_price = total_price + item_price
 
 print(f"your total price is {total_price}!")
