@@ -4,12 +4,16 @@ If the total price is over $100, then a 10% discount is applied to that total be
 
 # TODO separate into function (def: main, input and check, calculate, list answer)
 
-number_of_items = int(input("How many items do you have? "))
 total_price = 0
 
-for i in range(number_of_items):
+number_of_items = int(input("How many items do you have? "))
 
-    item_price = float(input(f"What is the price of item {i+1}: "))
+while number_of_items <= 0 or type(number_of_items) != int:
+    print("Invalid Answer, Number of items should be larger than zero")
+    number_of_items = int(input("How many items do you have? "))
+
+for i in range(number_of_items):
+    item_price = float(input(f"What is the price of item {i + 1}: "))
     total_price = total_price + item_price
 
 print(f"your total price is {total_price}!")
