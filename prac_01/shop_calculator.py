@@ -8,7 +8,7 @@ total_price = 0
 
 number_of_items = int(input("How many items do you have? "))
 
-while number_of_items <= 0 or type(number_of_items) != int:
+while number_of_items <= 0:
     print("Invalid Answer, Number of items should be larger than zero")
     number_of_items = int(input("How many items do you have? "))
 
