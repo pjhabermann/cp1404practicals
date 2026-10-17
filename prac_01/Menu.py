@@ -21,4 +21,14 @@ user_name = input("Enter Name: ")
 
 print("\n" .join(MENU_CHOICES))
 
+user_choice = input(">>>").upper()
 
+while user_choice != "Q":
+    if user_choice == "H":
+        print(f"Hello {user_name}")
+    elif user_choice == "G":
+        print(f"Goodbye {user_name}")
+    else:
+        print("Invalid choice")
+
+    user_choice = input(">>>").upper()
