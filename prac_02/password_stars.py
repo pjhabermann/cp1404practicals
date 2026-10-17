@@ -2,10 +2,9 @@
 
 MIN_NUMBER_OF_CHARACTERS = 4
 
+
 def main():
-
     password = get_password()
-
     print_stars(password)
 
 
