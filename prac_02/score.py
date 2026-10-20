@@ -2,13 +2,17 @@
 CP1404/CP5632 - Practical
 Program to determine score status
 """
+import random
+
+
 def main():
     score = float(input("Enter score: "))
-
     result = categorise_score(score)
+    print(result, "\n")
 
-    print(result)
-
+    random_score = round(random.uniform(0,100), 2)
+    random_result = categorise_score(random_score)
+    print(f"Random: {random_score} = {random_result}")
 
 def categorise_score(score: float) -> str:
     if score < 0 or score > 100:
