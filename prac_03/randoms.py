@@ -16,3 +16,6 @@ Testing Random
 import random
 
 print(random.randint(1, 100))
+
+# Line 1
+print(random.randint(5,20))
