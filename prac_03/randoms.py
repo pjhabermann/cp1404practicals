@@ -17,5 +17,8 @@ import random
 
 print(random.randint(1, 100))
 
-# Line 1
+# Line 1 Answer
 print(random.randint(5,20))
+
+# Line 2 Answer
+print(random.randrange(3, 9, 2))
