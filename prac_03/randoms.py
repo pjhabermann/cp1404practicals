@@ -22,3 +22,6 @@ print(random.randint(5,20))
 
 # Line 2 Answer
 print(random.randrange(3, 9, 2))
+
+# Line 3 Answer
+print(random.uniform(2.5, 5.5))
