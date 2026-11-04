@@ -11,7 +11,6 @@ class Car:
         """
         self.fuel = fuel
         self._odometer = 0
-
         self.name = name
 
     def __str__(self) -> str:
