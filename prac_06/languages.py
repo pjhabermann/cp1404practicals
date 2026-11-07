@@ -10,5 +10,11 @@ def main():
 
     print(f"{java}\n {c_plus_plus}\n {python}\n {visual_basic}\n {ruby}\n")
 
+    languages = (java, c_plus_plus, python, visual_basic, ruby)
+    print("The dynamically typed languages are")
+    for language in languages:
+        if language.reflection:
+            print(language.name)
+
 
 main()

@@ -1,5 +1,3 @@
-
-
 class ProgrammingLanguage:
     """Request a ........."""
 
@@ -15,4 +13,4 @@ class ProgrammingLanguage:
         return f"{self.name}, {self.typing} Typing, Reflection={self.reflection}, First appeared in {self.year}"
 
     def is_dynamic(self):
-        return self.typing == "Dynamic"
+        return self.reflection == True
