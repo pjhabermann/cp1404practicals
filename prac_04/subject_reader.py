@@ -8,10 +8,10 @@ FILENAME = "subject_data.txt"
 
 def main():
     """Program to load and display subject data from file."""
-    data = load_data(FILENAME)
-    print(data)
+    subject_data = load_data(FILENAME)
+    print(subject_data)
 
-    display_subject_details(data)
+    display_subject_details(subject_data)
 
 
 def load_data(filename=FILENAME):
@@ -25,17 +25,17 @@ def load_data(filename=FILENAME):
         parts = line.split(',')  # Separate the data into its parts
         print(parts)  # See what the parts look like (notice the integer is a string)
         # Make the number an integer as part of a new, poorly named, list
-        data = [parts[0], parts[1], int(parts[2])]
-        print(data)  # See if that worked
+        details = [parts[0], parts[1], int(parts[2])]
+        print(details)  # See if that worked
         print("----------")
-        nested_list.append(data)
+        nested_list.append(details)
     input_file.close()
 
     return nested_list
 
 
-def display_subject_details(data):
-    for detail in data:
+def display_subject_details(details):
+    for detail in details:
         print(f"{detail[0]} is taught by {detail[1]:<12} and has {detail[2]:>3}")
 
 
