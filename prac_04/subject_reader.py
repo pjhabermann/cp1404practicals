@@ -11,6 +11,8 @@ def main():
     data = load_data(FILENAME)
     print(data)
 
+    display_subject_details(data)
+
 
 def load_data(filename=FILENAME):
     """Read data from file formatted like: subject,lecturer,number of students."""
@@ -30,6 +32,11 @@ def load_data(filename=FILENAME):
     input_file.close()
 
     return nested_list
+
+
+def display_subject_details(data):
+    for detail in data:
+        print(f"{detail[0]} is taught by {detail[1]:<12} and has {detail[2]:>3}")
 
 
 main()
