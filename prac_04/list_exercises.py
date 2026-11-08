@@ -1,6 +1,7 @@
 """
 CP1404 Prac 4
 """
+from typing import Any
 
 usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface', 'BaseStdIn',
              'Command', 'ExecState', 'InteractiveConsole', 'InterpreterInterface', 'StartServer', 'bob']
@@ -8,12 +9,7 @@ usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'B
 
 def main():
     numbers = create_list_of_numbers()
-    print(f"{numbers}\n")
-    print(f"The first number is {numbers[0]}")
-    print(f"The last number is {numbers[-1]}")
-    print(f"The smallest number is {min(numbers)}")
-    print(f"The largest number is {max(numbers)}")
-    print(f"The average number is {(sum(numbers)) / len(numbers)}")
+    display_numbers_stats(numbers)
 
     input_username = input("What is your username: ")
 
@@ -23,7 +19,17 @@ def main():
         print("Access Denied")
 
 
+def display_numbers_stats(numbers: list[Any]):
+    print(f"{numbers}\n")
+    print(f"The first number is {numbers[0]}")
+    print(f"The last number is {numbers[-1]}")
+    print(f"The smallest number is {min(numbers)}")
+    print(f"The largest number is {max(numbers)}")
+    print(f"The average number is {(sum(numbers)) / len(numbers)}")
+
+
 def create_list_of_numbers():
+    """Creates a list of five numbers"""
     input_number_counter = 5
     numbers = []
     for i in range(input_number_counter):
@@ -33,6 +39,7 @@ def create_list_of_numbers():
 
 
 def check_username(input_username):
+    """Checks if a username is in the supplied list"""
     in_username = 0
     for username in usernames:
         if username == input_username:
