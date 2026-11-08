@@ -2,6 +2,9 @@
 CP1404 Prac 4
 """
 
+usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface', 'BaseStdIn',
+             'Command', 'ExecState', 'InteractiveConsole', 'InterpreterInterface', 'StartServer', 'bob']
+
 
 def main():
     numbers = create_list_of_numbers()
@@ -11,7 +14,13 @@ def main():
     print(f"The smallest number is {min(numbers)}")
     print(f"The largest number is {max(numbers)}")
     print(f"The average number is {(sum(numbers)) / len(numbers)}")
-    print()
+
+    input_username = input("What is your username: ")
+
+    if check_username(input_username) == 1:
+        print("Access Granted")
+    else:
+        print("Access Denied")
 
 
 def create_list_of_numbers():
@@ -21,6 +30,14 @@ def create_list_of_numbers():
         number_input = int(input("Number: "))
         numbers.append(number_input)
     return numbers
+
+
+def check_username(input_username):
+    in_username = 0
+    for username in usernames:
+        if username == input_username:
+            in_username += 1
+    return in_username
 
 
 main()
