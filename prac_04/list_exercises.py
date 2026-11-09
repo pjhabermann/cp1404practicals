@@ -8,11 +8,11 @@ usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'B
 
 
 def main():
+    """Displays the number stats and validates username input"""
     numbers = create_list_of_numbers()
     display_numbers_stats(numbers)
 
     input_username = input("What is your username: ")
-
     if check_username(input_username) == 1:
         print("Access Granted")
     else:
@@ -20,12 +20,13 @@ def main():
 
 
 def display_numbers_stats(numbers: list[Any]):
+    """Formats and displays the passed in list and its stats correctly"""
     print(f"{numbers}\n")
     print(f"The first number is {numbers[0]}")
     print(f"The last number is {numbers[-1]}")
     print(f"The smallest number is {min(numbers)}")
     print(f"The largest number is {max(numbers)}")
-    print(f"The average number is {(sum(numbers)) / len(numbers)}")
+    print(f"The average number is {(sum(numbers)) / len(numbers)}\n")
 
 
 def create_list_of_numbers():
