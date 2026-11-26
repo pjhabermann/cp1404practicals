@@ -26,20 +26,16 @@ def main():
     It holds a list of songs in RAM while the user is navigating the menu.
     """
     print("Song Supply 1.0 - by Pavel Habermann")
-    songs = read_songs()
+    songs = load_songs()
     print(f"{len(songs)} songs loaded")
-
     print(MENU)
     menu_choice = input(">>> ").upper()
+
     while menu_choice != "Q":
         if menu_choice == "D":
             display_songs(songs)
         elif menu_choice == "R":
             recommended_song = recommend_song(songs)
-            if recommended_song is not None:
-                print(f"Let's learn... {recommended_song[0]} by {recommended_song[1]}")
-            else:
-                print("No songs to learn")
         elif menu_choice == "A":
             add_song(songs)
         elif menu_choice == "C":
@@ -54,20 +50,18 @@ def main():
     print("Enjoy the music!")
 
 
-def read_songs():
+def load_songs():
     """Read songs from CSV into a nested list."""
+    songs = []
     try:
         with open(FILENAME, 'r') as in_file:
-            songs = []
             for line in in_file:
                 title, artist, year, status = line.strip().split(",")
                 songs.append([title, artist, int(year), status])
             sort_songs(songs)
-        return songs
     except FileNotFoundError:
         print(f"ERROR: '{FILENAME}' not found")
-        songs = []
-        return songs
+    return songs
 
 
 def sort_songs(songs: list[Any]):
@@ -82,7 +76,7 @@ def display_songs(songs: list[Any]):
         return
 
     learned_count = 0
-    max_title_length, max_artist_length = get_display_widths(songs)
+    max_title_length, max_artist_length = determine_display_widths(songs)
     for index, song in enumerate(songs, start=1):
         if song[3] == LEARNED:
             marker = ""
@@ -109,10 +103,16 @@ def recommend_song(songs) -> list | None:
     """Returns a randomly selected unlearned song or None if none remains."""
     unlearned_songs = get_unlearned_songs(songs)
     if not unlearned_songs:
-        return None
+        print("No songs to learn")
     else:
         random_unlearned_song = random.choice(unlearned_songs)
-        return random_unlearned_song
+        print(f"Let's learn... {random_unlearned_song[0]} by {random_unlearned_song[1]}")
+
+
+def get_unlearned_songs(songs) -> list[Any]:
+    """Creates a list of all the current unlearned songs"""
+    unlearned_songs = [song for song in songs if song[3] == UNLEARNED]
+    return unlearned_songs
 
 
 def complete_song(songs: list[Any]):
@@ -134,13 +134,13 @@ def complete_song(songs: list[Any]):
 def add_song(songs: list[Any]):
     """Add validated new songs to list and maintains ordering criteria."""
     print("Enter details for a new song.")
-    new_title, new_artist, new_year = get_valid_new_song_input()
-    songs.append([new_title, new_artist, new_year, UNLEARNED])
+    song = get_song()
+    songs.append(song)
     sort_songs(songs)
-    print(f"{new_title} by {new_artist} ({new_year}) added to supply of songs")
+    print(f"{song[0]} by {song[1]} ({song[2]}) added to supply of songs")
 
 
-def get_display_widths(songs: list[Any]) -> tuple[int, int]:
+def determine_display_widths(songs: list[Any]) -> tuple[int, int]:
     """Return the maximum title and artist lengths for aligning display columns."""
     max_title_length = 0
     max_artist_length = 0
@@ -155,15 +155,6 @@ def get_display_widths(songs: list[Any]) -> tuple[int, int]:
 
 def is_classic(song) -> bool:
     return song[2] <= CLASSIC_CUTOFF
-
-
-def get_unlearned_songs(songs) -> list[Any]:
-    """Returns a list of unlearnt songs."""
-    unlearned_songs = []
-    for song in songs:
-        if song[3] == UNLEARNED:
-            unlearned_songs.append(song)
-    return unlearned_songs
 
 
 def get_valid_song_choice(songs: list[Any]) -> int:
@@ -182,24 +173,10 @@ def get_valid_song_choice(songs: list[Any]) -> int:
     return song_choice
 
 
-def get_valid_new_song_input() -> tuple[str, str, int]:
-    """Collect nonblank, comma-free song details and a positive integer year."""
-    while True:
-        new_title = input("Title: ").strip()
-        if "," in new_title:
-            print("Song title can not contain commas")
-        elif new_title != "":
-            break
-        else:
-            print("Input can not be blank")
-    while True:
-        new_artist = input("Artist: ").strip()
-        if "," in new_artist:
-            print("Artist name can not contain commas")
-        elif new_artist != "":
-            break
-        else:
-            print("Input can not be blank")
+def get_song() -> list[str | int]:
+    """Collect nonblank song details and a positive integer year and returns them"""
+    new_title = get_valid_string("Title: ")
+    new_artist = get_valid_string("Artist: ")
     while True:
         try:
             new_year = int(input("Year: "))
@@ -209,10 +186,20 @@ def get_valid_new_song_input() -> tuple[str, str, int]:
                 print("Number must be > 0")
         except ValueError:
             print("Enter a valid integer")
-    return new_title, new_artist, new_year
+    return [new_title, new_artist, new_year, UNLEARNED]
+
+
+def get_valid_string(prompt: str) -> str:
+    """Checks string inputs aren't empty"""
+    string = input(prompt)
+    while string == "":
+        print("Input can not be blank")
+        string = input(prompt)
+    return string
 
 
 def save_songs(songs: list[Any]):
+    """Saves sorted song list to CSV file"""
     with open(FILENAME, 'w') as out_file:
         for song in songs:
             print(f"{song[0]},{song[1]},{song[2]},{song[3]}", file=out_file)
